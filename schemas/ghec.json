@@ -113126,6 +113126,18 @@
           "avatar_url"
         ]
       },
+      "issue-labels-array": {
+        "title": "labels",
+        "description": "labels",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/issue-labels-string-array"
+          },
+          {
+            "$ref": "#/components/schemas/issue-labels-object-array"
+          }
+        ]
+      },
       "issue-labels-string-array": {
         "title": "labels",
         "description": "issue labels string array",
@@ -113559,14 +113571,7 @@
             "$ref": "#/components/schemas/nullable-simple-user"
           },
           "labels": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/issue-labels-string-array"
-              },
-              {
-                "$ref": "#/components/schemas/issue-labels-object-array"
-              }
-            ]
+            "$ref": "#/components/schemas/issue-labels-array"
           },
           "assignee": {
             "$ref": "#/components/schemas/nullable-simple-user"

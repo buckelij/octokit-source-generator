@@ -41,8 +41,8 @@ type Issue struct {
     html_url *string
     // The id property
     id *int64
-    // The labels property
-    labels Issue_Issue_labelsable
+    // labels
+    labels IssueLabelsArrayable
     // The labels_url property
     labels_url *string
     // The locked property
@@ -79,118 +79,6 @@ type Issue struct {
     url *string
     // A GitHub user.
     user NullableSimpleUserable
-}
-// Issue_Issue_labels composed type wrapper for classes []Issue_labelsMember1able, []string
-type Issue_Issue_labels struct {
-    // Composed type representation for type []Issue_labelsMember1able
-    issue_labelsMember1 []Issue_labelsMember1able
-    // Composed type representation for type []string
-    string []string
-}
-// NewIssue_Issue_labels instantiates a new Issue_Issue_labels and sets the default values.
-func NewIssue_Issue_labels()(*Issue_Issue_labels) {
-    m := &Issue_Issue_labels{
-    }
-    return m
-}
-// CreateIssue_Issue_labelsFromDiscriminatorValue creates a new instance of the appropriate class based on discriminator value
-// returns a Parsable when successful
-func CreateIssue_Issue_labelsFromDiscriminatorValue(parseNode i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable, error) {
-    result := NewIssue_Issue_labels()
-    if parseNode != nil {
-        mappingValueNode, err := parseNode.GetChildNode("")
-        if err != nil {
-            return nil, err
-        }
-        if mappingValueNode != nil {
-            mappingValue, err := mappingValueNode.GetStringValue()
-            if err != nil {
-                return nil, err
-            }
-            if mappingValue != nil {
-            }
-        }
-    }
-    if val, err := parseNode.GetCollectionOfObjectValues(CreateIssue_labelsMember1FromDiscriminatorValue); val != nil {
-        if err != nil {
-            return nil, err
-        }
-        cast := make([]Issue_labelsMember1able, len(val))
-        for i, v := range val {
-            if v != nil {
-                cast[i] = v.(Issue_labelsMember1able)
-            }
-        }
-        result.SetIssueLabelsMember1(cast)
-    } else if val, err := parseNode.GetCollectionOfPrimitiveValues("string"); val != nil {
-        if err != nil {
-            return nil, err
-        }
-        cast := make([]string, len(val))
-        for i, v := range val {
-            if v != nil {
-                cast[i] = *(v.(*string))
-            }
-        }
-        result.SetString(cast)
-    }
-    return result, nil
-}
-// GetFieldDeserializers the deserialization information for the current model
-// returns a map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error) when successful
-func (m *Issue_Issue_labels) GetFieldDeserializers()(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error)) {
-    return make(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error))
-}
-// GetIsComposedType determines if the current object is a wrapper around a composed type
-// returns a bool when successful
-func (m *Issue_Issue_labels) GetIsComposedType()(bool) {
-    return true
-}
-// GetIssueLabelsMember1 gets the issue_labelsMember1 property value. Composed type representation for type []Issue_labelsMember1able
-// returns a []Issue_labelsMember1able when successful
-func (m *Issue_Issue_labels) GetIssueLabelsMember1()([]Issue_labelsMember1able) {
-    return m.issue_labelsMember1
-}
-// GetString gets the string property value. Composed type representation for type []string
-// returns a []string when successful
-func (m *Issue_Issue_labels) GetString()([]string) {
-    return m.string
-}
-// Serialize serializes information the current object
-func (m *Issue_Issue_labels) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
-    if m.GetIssueLabelsMember1() != nil {
-        cast := make([]i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable, len(m.GetIssueLabelsMember1()))
-        for i, v := range m.GetIssueLabelsMember1() {
-            if v != nil {
-                cast[i] = v.(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable)
-            }
-        }
-        err := writer.WriteCollectionOfObjectValues("", cast)
-        if err != nil {
-            return err
-        }
-    } else if m.GetString() != nil {
-        err := writer.WriteCollectionOfStringValues("", m.GetString())
-        if err != nil {
-            return err
-        }
-    }
-    return nil
-}
-// SetIssueLabelsMember1 sets the issue_labelsMember1 property value. Composed type representation for type []Issue_labelsMember1able
-func (m *Issue_Issue_labels) SetIssueLabelsMember1(value []Issue_labelsMember1able)() {
-    m.issue_labelsMember1 = value
-}
-// SetString sets the string property value. Composed type representation for type []string
-func (m *Issue_Issue_labels) SetString(value []string)() {
-    m.string = value
-}
-type Issue_Issue_labelsable interface {
-    i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable
-    GetIssueLabelsMember1()([]Issue_labelsMember1able)
-    GetString()([]string)
-    SetIssueLabelsMember1(value []Issue_labelsMember1able)()
-    SetString(value []string)()
 }
 // NewIssue instantiates a new Issue and sets the default values.
 func NewIssue()(*Issue) {
@@ -450,12 +338,12 @@ func (m *Issue) GetFieldDeserializers()(map[string]func(i878a80d2330e89d26896388
         return nil
     }
     res["labels"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
-        val, err := n.GetObjectValue(CreateIssue_Issue_labelsFromDiscriminatorValue)
+        val, err := n.GetObjectValue(CreateIssueLabelsArrayFromDiscriminatorValue)
         if err != nil {
             return err
         }
         if val != nil {
-            m.SetLabels(val.(Issue_Issue_labelsable))
+            m.SetLabels(val.(IssueLabelsArrayable))
         }
         return nil
     }
@@ -651,9 +539,9 @@ func (m *Issue) GetHtmlUrl()(*string) {
 func (m *Issue) GetId()(*int64) {
     return m.id
 }
-// GetLabels gets the labels property value. The labels property
-// returns a Issue_Issue_labelsable when successful
-func (m *Issue) GetLabels()(Issue_Issue_labelsable) {
+// GetLabels gets the labels property value. labels
+// returns a IssueLabelsArrayable when successful
+func (m *Issue) GetLabels()(IssueLabelsArrayable) {
     return m.labels
 }
 // GetLabelsUrl gets the labels_url property value. The labels_url property
@@ -1042,8 +930,8 @@ func (m *Issue) SetHtmlUrl(value *string)() {
 func (m *Issue) SetId(value *int64)() {
     m.id = value
 }
-// SetLabels sets the labels property value. The labels property
-func (m *Issue) SetLabels(value Issue_Issue_labelsable)() {
+// SetLabels sets the labels property value. labels
+func (m *Issue) SetLabels(value IssueLabelsArrayable)() {
     m.labels = value
 }
 // SetLabelsUrl sets the labels_url property value. The labels_url property
@@ -1137,7 +1025,7 @@ type Issueable interface {
     GetEventsUrl()(*string)
     GetHtmlUrl()(*string)
     GetId()(*int64)
-    GetLabels()(Issue_Issue_labelsable)
+    GetLabels()(IssueLabelsArrayable)
     GetLabelsUrl()(*string)
     GetLocked()(*bool)
     GetMilestone()(NullableMilestoneable)
@@ -1172,7 +1060,7 @@ type Issueable interface {
     SetEventsUrl(value *string)()
     SetHtmlUrl(value *string)()
     SetId(value *int64)()
-    SetLabels(value Issue_Issue_labelsable)()
+    SetLabels(value IssueLabelsArrayable)()
     SetLabelsUrl(value *string)()
     SetLocked(value *bool)()
     SetMilestone(value NullableMilestoneable)()
