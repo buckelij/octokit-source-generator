@@ -1,7 +1,6 @@
 openapitools.json
 nuget.exe
 output.txt
-schemas/*.json
 
 # GO Related
 generated/go/*
