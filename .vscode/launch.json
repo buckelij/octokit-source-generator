@@ -5,6 +5,14 @@
   "version": "0.2.0",
   "configurations": [
 
+
+    {
+      "name": "example issue",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/stage/go/go-sdk/cmd/token-example/main.go"
+    },
     {
       "name": "Debug Go post-processing",
       "type": "go",
